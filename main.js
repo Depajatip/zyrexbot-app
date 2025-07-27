@@ -19,7 +19,11 @@ const readline = require("readline");
 const { smsg, imageToWebp, videoToWebp, writeExifImg, writeExifVid, writeExif, toPTT, toAudio, toVideo, getBuffer } = require("./lib/library.js")
 
 const store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
-const question = (text) => { const rl = readline.createInterface({ input: process.stdin, output: process.stdout }); return new Promise((resolve) => { rl.question(text, resolve) }) };
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+})
+const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 
 async function start() {
     const { state, saveCreds } = await useMultiFileAuthState("session")
@@ -27,13 +31,13 @@ async function start() {
         logger: pino({ level: "silent" }),
         printQRInTerminal: false,
         auth: state,
-        browser: ['Mac OS', 'Safari', '10.15.7']
+        browser: ['Ubuntu', 'Safari', '20.0.04']
     });
 
     if (!fell.authState.creds.registered) {
-        const phoneNumber = await question('Input Number Start With Code Cuntry 62xxxx :\n');
-        let code = await fell.requestPairingCode(phoneNumber);
-        code = code?.match(/.{1,4}/g)?.join("-") || code;
+    const nomornya = await question(' ');
+    let code = await fell.requestPairingCode(nomornya, "DEPACUKI");
+    code = code?.match(/.{1,4}/g)?.join("-") || code;
         console.log(`𝑻𝑯𝑰𝑺 𝑼𝑹 𝑪𝑶𝑫𝑬 :`, code);
     }
 

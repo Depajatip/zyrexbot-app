@@ -908,7 +908,6 @@ module.exports = async (fell, m) => {
                 \`⏤͟͟͞͞ Downloader By Depa\`
   `;
 
-                // Mengirim video jika ada
                 if (vidnya) {
                     await fell.sendMessage(m.chat, { caption: caption, video: { url: vidnya } }, { quoted: m });
                 } else if (gambarStory) {
